@@ -10,7 +10,7 @@
 
 <body>
     <main>
-        <div id="binary">
+        <section id="binary">
             <div class="bit">
                 <h1>0</h1>
             </div>
@@ -35,11 +35,24 @@
             <div class="bit">
                 <h1>0</h1>
             </div>
-        </div>
-        <div id="other">
+        </section>
+        <section id="other">
             <h1>HEX: <span id="hex-num">0x0</span></h1>
             <h1>DEC: <span id="dec-num">0</span></h1>
-        </div>
+            <div id="variations-container">
+                <h1>VARS: </h1>
+                <div id="variations">
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <h1>CONTROLS:</h1>
+            <ul>
+                <li>LEFT CLICK TO CHANGE BIT</li>
+                <li>RIGHT CLICK TO MAKE BIT VARIABLE</li>
+            </ul>
+        </section>
     </main>
 
     <script src="script.js"></script>

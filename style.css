@@ -16,7 +16,7 @@ main {
     align-items: center;
 }
 
-main div {
+main section {
     width: 100%;
 }
 
@@ -38,12 +38,24 @@ main div {
     cursor: pointer;
 }
 
-.bit:hover::before {
+.bit::before {
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
+    background-color: transparent;
+}
+
+.bit.variable::before {
+    background-color: rgba(255, 0, 0, 0.2) !important;
+}
+
+.bit:hover::before {
     background-color: rgba(0, 0, 255, 0.2);
+}
+
+#variations-container {
+    display: flex;
 }
