@@ -2,25 +2,24 @@ const bits = document.querySelectorAll('.bit');
 const hexEl = document.querySelector('#hex-num');
 const decEl = document.querySelector('#dec-num');
 const variationsEl = document.querySelector('#variations');
+const copyEl = document.querySelector('#copy');
 
 let value = 0;
 const varbits = [];
+let copyStr = '';
 
 const updateVariations = () =>
 {
+    copyStr = '';
+
     variationsEl.innerHTML = '';
 
     if (varbits.length === 0)
         return;
 
-    const bits = [];
+    const numVariations = Math.pow(2, varbits.length);
 
-    for (let j = 0; j < varbits.length; j++)
-    {
-        bits.push(0);
-    }
-
-    for (let j = 0; j < Math.pow(2, varbits.length); j++)
+    for (let j = 0; j < numVariations; j++)
     {
         const pEl = document.createElement('h1');
 
@@ -28,27 +27,20 @@ const updateVariations = () =>
 
         for (let k = 0; k < varbits.length; k++)
         {
-            if (bits[k] === 1)
+            if ((j >> k) & 1)
+            {
                 tmp += Math.pow(2, varbits[k]);
+            }
         }
 
-        let binTmpStr = tmp.toString(2);
+        let binTmpStr = tmp.toString(2).padStart(8, '0');
+        let hexTmpStr = tmp.toString(16).padStart(2, '0');
+        hexTmpStr = `0x${hexTmpStr}`;
 
-        for (let k = binTmpStr.length; k < 8; k++)
-            binTmpStr = `0${binTmpStr}`;
-
-        let hexTmpStr = tmp.toString(16);
-        if (hexTmpStr.length === 1) hexTmpStr = `0${hexTmpStr}`;
-        hexTmpStr = `0x${hexTmpStr}`
+        copyStr += `case ${hexTmpStr}: `;
 
         pEl.innerHTML = `${binTmpStr} ${hexTmpStr} ${tmp}`;
         variationsEl.appendChild(pEl);
-
-        for (let k = 0; k < varbits.length; k++)
-        {
-            let pot = Math.pow(2, k);
-            bits[k] = ((j % (2 * pot)) / pot);
-        }
     }
 };
 
@@ -99,4 +91,9 @@ bits.forEach((bit, i) =>
 
         updateVariations();
     });
+});
+
+copyEl.addEventListener('click', e =>
+{
+    navigator.clipboard.writeText(copyStr);
 });
